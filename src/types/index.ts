@@ -55,19 +55,18 @@ export interface ListResponse<T> {
 
 export interface CreateSubscriptionPlanDto {
     name: string;
+    reference: string;
     description: string;
     price: number;
     currencyId: string;
-    interval: 'daily' | 'weekly' | 'monthly' | 'yearly';
+    interval: 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'yearly';
+    intervalCount: number;
     billingDay: number;
     freeDays: number;
+    allowProrate: boolean;
     status: boolean;
-    source: string;
-    intervalCount?: number;
-    reference?: string;
-    allowProrate?: boolean;
-    redirectUrl?: string;
-    urlBack?: string;
+    redirectUrl: string;
+    urlBack: string;
 }
 
 export type UpdateSubscriptionPlanDto = Partial<CreateSubscriptionPlanDto>;

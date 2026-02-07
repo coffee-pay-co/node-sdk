@@ -20,7 +20,10 @@ export class SubscriptionsPlans {
      * Creates a new subscription plan.
      */
     async create(data: CreateSubscriptionPlanDto): Promise<ApiResponse<SubscriptionPlan>> {
-        const response = await this.axios.post<ApiResponse<SubscriptionPlan>>('/subscriptions-plans', data);
+        const response = await this.axios.post<ApiResponse<SubscriptionPlan>>('/subscriptions-plans', {
+            ...data,
+            source: 'API',
+        });
         return response.data;
     }
 
