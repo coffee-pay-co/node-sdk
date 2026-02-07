@@ -56,7 +56,6 @@ const newPlan = await coffee.subscriptionsPlans.create({
   price: 25000,
   currencyId: '...', // Bogota UUID
   interval: 'monthly',
-  accountId: '...',
   billingDay: 1,
   freeDays: 0,
   status: true,

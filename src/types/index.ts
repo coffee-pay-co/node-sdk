@@ -59,7 +59,6 @@ export interface CreateSubscriptionPlanDto {
     price: number;
     currencyId: string;
     interval: 'daily' | 'weekly' | 'monthly' | 'yearly';
-    accountId: string;
     billingDay: number;
     freeDays: number;
     status: boolean;
