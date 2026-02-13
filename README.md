@@ -11,6 +11,7 @@ Node.js SDK to integrate with the **COFFEE-PAY** payment gateway easily and secu
 
 - 🔐 **Automatic JWT Authentication**: Handles `apiKey` and `apiSecret` encryption automatically.
 - 🧾 **Subscription Management**: Full CRUD support for subscription plans.
+- 💳 **Payment Methods**: Consult available payment methods.
 - 🛡️ **Web Signing Utilities**: Easy signature generation for secure web payment buttons.
 - 🧠 **Fully Typed**: Built with TypeScript for excellent developer experience.
 - ⚙️ **Modern**: Compatible with Node.js v18+.
@@ -84,7 +85,17 @@ const currencies = await coffee.currencies.list(10, 1);
 const currency = await coffee.currencies.get('CURRENCY_ID');
 ```
 
-### 4. Signing for Web Payments
+### 4. Consult Payment Methods
+
+```typescript
+// List available payment methods
+const methods = await coffee.paymentMethods.list(10, 1);
+
+// Get payment method by ID
+const method = await coffee.paymentMethods.get('METHOD_ID');
+```
+
+### 5. Signing for Web Payments
 
 Use this utility to sign requests made from the browser (e.g., for payment buttons).
 
@@ -127,6 +138,13 @@ const signature = CryptoUtils.generateWebSignature(accountKey, integrityKey, tim
 | --- | --- |
 | `list(limit, page)` | Returns a list of supported currencies. |
 | `get(id)` | Retrieves detailed information for a specific currency. |
+
+### `paymentMethods`
+
+| Method | Description |
+| --- | --- |
+| `list(limit, page)` | Returns a list of available payment methods. |
+| `get(id)` | Retrieves detailed information for a specific payment method. |
 
 ---
 

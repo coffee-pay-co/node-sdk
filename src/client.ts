@@ -3,12 +3,14 @@ import { CoffeeConfig } from './types';
 import { AuthUtils } from './utils/auth';
 import { SubscriptionsPlans } from './resources/subscriptions-plans';
 import { Currencies } from './resources/currencies';
+import { PaymentMethods } from './resources/payment-methods';
 
 export class CoffeeSDK {
     private axiosInstance: AxiosInstance;
     private config: CoffeeConfig;
     public subscriptionsPlans: SubscriptionsPlans;
     public currencies: Currencies;
+    public paymentMethods: PaymentMethods;
 
     constructor(config: CoffeeConfig) {
         this.config = config;
@@ -26,5 +28,6 @@ export class CoffeeSDK {
 
         this.subscriptionsPlans = new SubscriptionsPlans(this.axiosInstance);
         this.currencies = new Currencies(this.axiosInstance);
+        this.paymentMethods = new PaymentMethods(this.axiosInstance);
     }
 }

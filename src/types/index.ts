@@ -85,3 +85,17 @@ export interface Currency {
     createdAt: string;
     updatedAt: string;
 }
+
+export interface PaymentMethod {
+    id: string;
+    name: string;
+    slug: string;
+    icon?: string;
+    status: boolean;
+    isDeleted: boolean;
+    createdBy: string;
+    updatedBy: string;
+    createdAt?: string;
+    updatedAt?: string;
+}
+
