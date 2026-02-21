@@ -14,8 +14,24 @@ export class CryptoUtils {
      * Verifies the signature of a webhook notification.
      */
     static verifyWebhookSignature(payload: any, signature: string, integrityKey: string): boolean {
-        const payloadString = JSON.stringify(payload);
+        const payloadString = this.stableStringify(payload);
         const expectedSignature = crypto.HmacSHA256(payloadString, integrityKey).toString(crypto.enc.Hex);
         return signature === expectedSignature;
+    }
+
+    /**
+     * Deterministic JSON stringify that sorts object keys recursively.
+     */
+    private static stableStringify(obj: any): string {
+        if (obj === null || typeof obj !== 'object' || Array.isArray(obj)) {
+            return JSON.stringify(obj);
+        }
+
+        const sortedKeys = Object.keys(obj).sort();
+        const result: any = {};
+        for (const key of sortedKeys) {
+            result[key] = this.stableStringify(obj[key]);
+        }
+        return JSON.stringify(result);
     }
 }

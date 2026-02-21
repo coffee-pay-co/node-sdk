@@ -41,3 +41,4 @@ prompt.md
 Dockerfile
 docker-compose.yml
 example.ts
+DEPLOY.md
