@@ -10,4 +10,12 @@ export class CryptoUtils {
         const hash = crypto.SHA256(dataToSign);
         return hash.toString(crypto.enc.Hex);
     }
+    /**
+     * Verifies the signature of a webhook notification.
+     */
+    static verifyWebhookSignature(payload: any, signature: string, integrityKey: string): boolean {
+        const payloadString = JSON.stringify(payload);
+        const expectedSignature = crypto.HmacSHA256(payloadString, integrityKey).toString(crypto.enc.Hex);
+        return signature === expectedSignature;
+    }
 }
