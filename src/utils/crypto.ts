@@ -23,15 +23,21 @@ export class CryptoUtils {
      * Deterministic JSON stringify that sorts object keys recursively.
      */
     private static stableStringify(obj: any): string {
-        if (obj === null || typeof obj !== 'object' || Array.isArray(obj)) {
-            return JSON.stringify(obj);
-        }
+        return JSON.stringify(this.sortObject(obj));
+    }
 
+    private static sortObject(obj: any): any {
+        if (obj === null || typeof obj !== 'object' || obj instanceof Date) {
+            return obj;
+        }
+        if (Array.isArray(obj)) {
+            return obj.map((item) => this.sortObject(item));
+        }
         const sortedKeys = Object.keys(obj).sort();
         const result: any = {};
         for (const key of sortedKeys) {
-            result[key] = this.stableStringify(obj[key]);
+            result[key] = this.sortObject(obj[key]);
         }
-        return JSON.stringify(result);
+        return result;
     }
 }
