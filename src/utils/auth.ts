@@ -1,5 +1,5 @@
-import * as crypto from 'crypto-js';
-import { v4 as uuidv4 } from 'uuid';
+import * as cryptoJs from 'crypto-js';
+import { randomUUID } from 'crypto';
 import { AuthPayload } from '../types';
 
 export class AuthUtils {
@@ -9,15 +9,15 @@ export class AuthUtils {
 
         const payload: AuthPayload = {
             iss: apiKey,
-            jti: uuidv4(),
+            jti: randomUUID(),
             iat: now,
             exp: now + 30, // 30 seconds expiration as requested
         };
 
-        const base64url = (source: crypto.lib.WordArray | string): string => {
+        const base64url = (source: cryptoJs.lib.WordArray | string): string => {
             let encodedSource = typeof source === 'string'
-                ? crypto.enc.Base64.stringify(crypto.enc.Utf8.parse(source))
-                : crypto.enc.Base64.stringify(source);
+                ? cryptoJs.enc.Base64.stringify(cryptoJs.enc.Utf8.parse(source))
+                : cryptoJs.enc.Base64.stringify(source);
 
             return encodedSource
                 .replace(/=+$/, '')
@@ -29,7 +29,7 @@ export class AuthUtils {
         const encodedPayload = base64url(JSON.stringify(payload));
 
         const signatureSource = `${encodedHeader}.${encodedPayload}`;
-        const signature = base64url(crypto.HmacSHA256(signatureSource, apiSecret));
+        const signature = base64url(cryptoJs.HmacSHA256(signatureSource, apiSecret));
 
         return `${encodedHeader}.${encodedPayload}.${signature}`;
     }
